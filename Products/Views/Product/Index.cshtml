@@ -1,0 +1,67 @@
+﻿@model IEnumerable<Products.Models.Product>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2 id="ProductTitle">Products</h2>
+<div id="ProductCreate">
+   @Html.ActionLink("Create New Product", "Create", null, new { @class = "btn btn-success" })
+</div>
+
+<div id="nav_separator"></div>
+
+<div class="container">
+    <ul class="nav nav-pills">
+        <li class="active">@Html.ActionLink("All Categories", "ProductsByCategory", new { id = "0" })</li>
+        <li>@Html.ActionLink("Books & Audible", "ProductsByCategory", new { id = "1" })</li>
+        <li>@Html.ActionLink("Movies, Music & Games", "ProductsByCategory", new { id = "2" })</li>
+        <li>@Html.ActionLink("Electronics & Computers", "ProductsByCategory", new { id = "3" })</li>
+        <li>@Html.ActionLink("Home, Garden & Tools", "ProductsByCategory", new { id = "4" })</li>
+        <li>@Html.ActionLink("Beauty, Health & Grocery", "ProductsByCategory", new { id = "5" })</li>
+        <li>@Html.ActionLink("Toys, Kids & Baby", "ProductsByCategory", new { id = "6" })</li>
+        <li>@Html.ActionLink("Clothing, Shoes & Jewelry", "ProductsByCategory", new { id = "7" })</li>
+        <li>@Html.ActionLink("Sport & Outdoors", "ProductsByCategory", new { id = "8" })</li>
+        <li>@Html.ActionLink("Automative & Industrial", "ProductsByCategory", new { id = "9" })</li>
+    </ul>
+</div>
+
+<div id="panel_separator"></div>
+
+<div class="row">
+
+    @if (!Model.Any())
+    {
+        <strong>This category does not contain any product.</strong>
+    }
+    else 
+    {
+        foreach (var item in Model)
+        {
+            <div class="col-sm-6 col-md-4">
+                <div class="panel panel-default" style="min-height:450px;">
+                    <div id="productTitle">
+                        <h3>
+                            @Html.DisplayFor(modelItem => item.name)
+                        </h3>
+                    </div>
+                    <div class="panel-body">
+                        <p>
+                            @Html.DisplayFor(modelItem => item.description)
+                        </p>
+                        <p>
+                            Price: @Html.DisplayFor(modelItem => item.price)
+                        </p>
+                        <p>
+                            Stock: @Html.DisplayFor(modelItem => item.quantity)
+                        </p>
+                        <p>
+                           @Html.ActionLink("Edit", "Edit", new { id = item.ID }, new { @class = "btn btn-default" })
+                        </p>
+                    </div>
+                </div>
+            </div>
+        }
+    } 
+
+</div>
