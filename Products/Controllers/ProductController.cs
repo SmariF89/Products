@@ -2,6 +2,7 @@
 using Products.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -21,6 +22,14 @@ namespace Products.Models
         public ActionResult Products()
         {
             return RedirectToAction("Index");
+        }
+
+        public ActionResult ProductsBySearch(string str)
+        {
+            IEnumerable<Product> products = db.Products.Where(prod => prod.name.ToLower().Contains(str.ToLower()) ||
+                                                                      prod.description.ToLower().Contains(str.ToLower()));
+
+            return View("Index", products);
         }
 
         public ActionResult ProductsByCategory(int? id)
@@ -95,7 +104,7 @@ namespace Products.Models
             return View(model);
         }
 
-        [HttpPost]
+        [HttpPost] 
         public ActionResult Create(ProductViewModel model)
         {
             if (ModelState.IsValid)
